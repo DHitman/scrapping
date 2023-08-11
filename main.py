@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import time
 
@@ -22,10 +23,17 @@ def extract_links_with_href(driver, url):
     links_with_href = div_collection.find_all('a', href=True)
     return links_with_href
 
-chrome_driver_path = r'C:\Users\abhis\OneDrive\Desktop\pythonselenium\chromedriver-win64\chromedriver.exe'
-chrome_service = Service(chrome_driver_path)
+options = Options()
+options.add_argument("--headless")
+options.add_argument("window-size=1400,1500")
+options.add_argument("--disable-gpu")
+options.add_argument("--no-sandbox")
+options.add_argument("start-maximized")
+options.add_argument("enable-automation")
+options.add_argument("--disable-infobars")
+options.add_argument("--disable-dev-shm-usage")
 
-driver = webdriver.Chrome(service=chrome_service)
+driver = webdriver.Chrome(options=options)
 
 # Storing the links in a list with the base URL
 url = 'https://www.facescanada.com/collections/lipstick'
